@@ -1,0 +1,9 @@
+{
+  "Name": "Test",
+  "Mobile": 12345678,
+  "Boolean": true,
+  "Pets": "Dog",
+  "Address": "Oak street",
+  "Permanent address": "USA",
+  "current Address": "AU"
+}

@@ -1,3 +1,7 @@
-/.idea/
-/app/build/
-/app/.gradle/
+/build
+/app/build
+/.idea
+/app/.gradle
+.idea
+.idea/compiler.xml
+app/.gradle/8.5/executionHistory/executionHistory.lock

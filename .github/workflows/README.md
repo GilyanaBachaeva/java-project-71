@@ -1,5 +1,6 @@
-# Automatic tests
+[![Actions Status](https://github.com/GilyanaBachaeva/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/GilyanaBachaeva/java-project-71/actions)
+[![Actions Status](https://github.com/GilyanaBachaeva/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/GilyanaBachaeva/java-project-71/actions)
 
-After completing all the steps in the project, automatic tests will become available to you. Tests are run on each commit - once all tasks in the Hexlet interface are completed, make a commit, and the tests will run automatically.
+[![Maintainability](https://api.codeclimate.com/v1/badges/086c4e0ce3f9c247c3c9/maintainability)](https://codeclimate.com/github/GilyanaBachaeva/java-project-71/maintainability)
 
-The hexlet-check.yml file is responsible for running these tests - do not delete this file, edit it, or rename the repository.
+[![Test Coverage](https://api.codeclimate.com/v1/badges/086c4e0ce3f9c247c3c9/test_coverage)](https://codeclimate.com/github/GilyanaBachaeva/java-project-71/test_coverage)
