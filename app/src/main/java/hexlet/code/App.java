@@ -5,19 +5,45 @@ import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
 
-@CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
-        description = "Compares two configuration files and shows a difference.")
+@CommandLine.Command(
+        name = "gendiff",
+        mixinStandardHelpOptions = true,
+        version = "gendiff 1.0",
+        description = "Compares two configuration files and shows a difference."
+)
 
-class App implements Callable<Integer> {
-    @CommandLine.Parameters(description = "path to first file.")
+public class App implements Callable<Integer> {
+
+    @CommandLine.Parameters(
+            index = "0",
+            paramLabel = "filepath1",
+            description = "path to first file"
+    )
     private String filepath1;
-    @CommandLine.Parameters(description = "path to second file")
-    private String filepath2;
-
-    @CommandLine.Option(names = {"-f", "--format"},
-            description = "output format: stylish, plain, json, no-format [default: ${DEFAULT-VALUE}]",
-            defaultValue = "stylish")
-    private String format;
+    @CommandLine.Parameters(
+            index = "1",
+            paramLabel = "filepath2 ",
+            description = "path to second file"
+    )
+    private String filepath2 ;
+    @CommandLine.Option(
+            names = {"-h", "--help"},
+            usageHelp = true,
+            description = "Show this help message and exit."
+    )
+    boolean usageHelpRequested;
+    @CommandLine.Option(
+            names = {"-V", "--version"},
+            versionHelp = true,
+            description = "Print version information and exit."
+    )
+    boolean versionInfoRequested;
+    @CommandLine.Option(
+            names = {"-f", "--format"},
+            paramLabel = "format",
+            description = "output format [default: stylish]"
+    )
+    private String format = "stylish";
 
     @Override
     public Integer call() throws Exception {
