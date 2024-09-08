@@ -1,9 +1,5 @@
 {
-  "Name": "Test",
-  "Mobile": 12345678,
-  "Boolean": true,
-  "Pets": "Dog",
-  "Address": "Oak street",
-  "Permanent address": "USA",
-  "current Address": "AU"
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io"
 }

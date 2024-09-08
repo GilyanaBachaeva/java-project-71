@@ -1,7 +1,6 @@
 {
-  "Name": "Test",
-  "Mobile": 12345678,
-  "Pets": "Cat",
-  "Address": "Mallory street",
-  "current Address": "AU"
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
 }

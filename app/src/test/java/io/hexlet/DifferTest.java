@@ -1,32 +1,26 @@
 package io.hexlet;
 
 import hexlet.code.Differ;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
-    private static String jsonFilePath1;
-    private static String jsonFilePath2;
 
-    public static String read(String filePath) throws Exception {
-        Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        return Files.readString(path);
-    }
-
-    @BeforeAll
-    public static void initialSetup() throws Exception {
-        jsonFilePath1 = "src/test/resources/testJson1.json";
-        jsonFilePath2 = "src/test/resources/testJson2.json";
-    }
+    String filePath1 = "src/test/resources/file1.json";
+    String filePath2 = "src/test/resources/file2.json";
 
     @Test
-    public void defaultFormatterTest() throws Exception {
-        String resultJson = Differ.generate(jsonFilePath1, jsonFilePath2);
-        Assertions.assertEquals(resultJson, "");
+    public void testCall() throws Exception {
+        String expected = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }""";
+        String actual = Differ.generate(filePath1, filePath2);
+        assertEquals(expected, actual);
     }
 }
