@@ -20,12 +20,14 @@ public class App implements Callable<Integer> {
             description = "path to first file"
     )
     private String filepath1;
+
     @CommandLine.Parameters(
             index = "1",
             paramLabel = "filepath2 ",
             description = "path to second file"
     )
     private String filepath2 ;
+
     @CommandLine.Option(
             names = {"-h", "--help"},
             usageHelp = true,

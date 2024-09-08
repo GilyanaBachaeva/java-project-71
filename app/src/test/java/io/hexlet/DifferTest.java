@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
 
-    String filePath1 = "src/test/resources/file1.json";
-    String filePath2 = "src/test/resources/file2.json";
+    String filePath1 = "src/test/resources/file3.yml";
+    String filePath2 = "src/test/resources/file4.yml";
 
     @Test
     public void testCall() throws Exception {

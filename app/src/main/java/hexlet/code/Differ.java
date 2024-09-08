@@ -1,25 +1,13 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import static hexlet.code.Parser.parser;
 
 public class Differ {
-
-    public static <K, V> Map<K, V> sortByKeys(Map<K, V> unsortedMap) {
-        return new TreeMap<>(unsortedMap);
-    }
-
-    private static Map<String, String> parsingGenerateMap(String data) throws Exception {
-        Map<String, String> map = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-        return sortByKeys(mapper.readValue(data, new TypeReference<>() { }));
-    }
 
     public static String generateDifferenceList(Map<String, String> map1, Map<String, String> map2) {
         TreeMap<String, Object> mixData = new TreeMap<>();
@@ -72,15 +60,23 @@ public class Differ {
     public static String  generate(String filepath1, String filepath2) throws Exception {
         String readFile1Path = "./file1";
         String readFile2Path = "./file2";
+
         Path path1 = Paths.get(readFile1Path).toAbsolutePath().normalize();
         Path path2 = Paths.get(readFile2Path).toAbsolutePath().normalize();
+
+        String fileType1 = getFType(filepath1);
+        String fileType2 = getFType(filepath2);
 
         String content1 = Files.readString(path1);
         String content2 = Files.readString(path2);
 
-        Map<String, String> map1 = parsingGenerateMap(content1);
-        Map<String, String> map2 = parsingGenerateMap(content2);
+        Map<String, String> map1 = parser(content1, fileType1);
+        Map<String, String> map2 = parser(content2, fileType2);
 
         return generateDifferenceList(map1, map2);
+    }
+
+    private static String getFType(String filepath) {
+        return filepath.substring(filepath.indexOf(".") + 1);
     }
 }
