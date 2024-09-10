@@ -58,8 +58,8 @@ public class Differ {
     }
 
     public static String  generate(String filepath1, String filepath2) throws Exception {
-        String readFile1Path = "./file1";
-        String readFile2Path = "./file2";
+        String readFile1Path = filepath1;
+        String readFile2Path = filepath2;
 
         Path path1 = Paths.get(readFile1Path).toAbsolutePath().normalize();
         Path path2 = Paths.get(readFile2Path).toAbsolutePath().normalize();

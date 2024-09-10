@@ -2,6 +2,8 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,10 +13,12 @@ public class Parser {
         return new TreeMap<>(unsortedMap);
     }
 
+    private static ObjectMapper chooseFormat(String fileType) {
+        return "json".equals(fileType) ? new ObjectMapper() : new ObjectMapper(new YAMLFactory());
+    }
+
     public static Map<String, String> parser(String data, String fileType) throws Exception {
-        Map<String, String> map = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-        return sortByKeys(mapper.readValue(data, new TypeReference<>() {
-        }));
+        ObjectMapper objectmapper = chooseFormat(fileType);
+        return sortByKeys(objectmapper.readValue(data, new TypeReference<>() { }));
     }
 }
