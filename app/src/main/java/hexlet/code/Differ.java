@@ -3,61 +3,43 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+
+import static hexlet.code.Formatter.Stylish.formatStylish;
 import static hexlet.code.Parser.parser;
 
 public class Differ {
 
-    public static String generateDifferenceList(Map<String, String> map1, Map<String, String> map2) {
-        TreeMap<String, Object> mixData = new TreeMap<>();
-        mixData.putAll(map1);
-        mixData.putAll(map2);
-
-        StringBuilder result = new StringBuilder("{\n");
-        for (String keyMap1 : map1.keySet()) {
-            if ((map2.containsKey(keyMap1)) && (map2.get(keyMap1).equals(map1.get(keyMap1)))) {
-                result.append("    ");
-                result.append(keyMap1).append(": ");
-                result.append(map2.get(keyMap1));
-                result.append("\n");
-                mixData.remove(keyMap1);
-            } else if ((map2.containsKey(keyMap1))
-                    && (!map2.get(keyMap1).equals(map1.get(keyMap1)))) {
-                result.append("  ");
-                result.append("- ");
-                result.append(keyMap1).append(": ");
-                result.append(map1.get(keyMap1));
-                result.append("\n");
-                mixData.remove(keyMap1);
-                result.append("  ");
-                result.append("+ ");
-                result.append(keyMap1).append(": ");
-                result.append(map2.get(keyMap1));
-                result.append("\n");
-                mixData.remove(keyMap1);
-            } else if (!map2.containsKey(keyMap1)) {
-                result.append("  ");
-                result.append("- ");
-                result.append(keyMap1).append(": ");
-                result.append(map1.get(keyMap1));
-                result.append("\n");
-                mixData.remove(keyMap1);
+    public static List<Map<String, Object>> generateDifferenceList(Map<String, Object> map1, Map<String, Object> map2) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Set<String> keysSet = new TreeSet<>(map1.keySet());
+        keysSet.addAll(map2.keySet());
+        for (String key :  keysSet) {
+            Map<String, Object> map = new LinkedHashMap<>();
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "removed");
+            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("newValue", map2.get(key));
+                map.put("status", "added");
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("newValue", map2.get(key));
+                map.put("status", "updated");
+            } else {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "unchanged");
             }
+            result.add(map);
         }
-
-        for (String keyMixData : mixData.keySet()) {
-            result.append("  ");
-            result.append("+ ");
-            result.append(keyMixData).append(": ");
-            result.append(map2.get(keyMixData));
-            result.append("\n");
-        }
-        result.append("}");
-        return result.toString();
+        return result;
     }
 
-    public static String  generate(String filepath1, String filepath2) throws Exception {
+    public static String  generate(String filepath1, String filepath2, String format) throws Exception {
         String readFile1Path = filepath1;
         String readFile2Path = filepath2;
 
@@ -70,10 +52,16 @@ public class Differ {
         String content1 = Files.readString(path1);
         String content2 = Files.readString(path2);
 
-        Map<String, String> map1 = parser(content1, fileType1);
-        Map<String, String> map2 = parser(content2, fileType2);
+        Map<String, Object> map1 = parser(content1, fileType1);
+        Map<String, Object> map2 = parser(content2, fileType2);
 
-        return generateDifferenceList(map1, map2);
+        List<Map<String, Object>> result = generateDifferenceList(map1, map2);
+
+        return formatStylish(result);
+    }
+
+    public static String generate(String pathfile1, String pathfile2) throws Exception {
+        return generate(pathfile1, pathfile2, "stylish");
     }
 
     private static String getFType(String filepath) {
