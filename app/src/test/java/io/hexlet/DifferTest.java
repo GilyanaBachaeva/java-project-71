@@ -20,6 +20,8 @@ public class DifferTest {
             Paths.get("src/test/resource/prototypes/firstResult").toAbsolutePath().normalize();
     private final Path secondPrototype =
             Paths.get("src/test/resource/prototypes/secondResult").toAbsolutePath().normalize();
+    private final Path thirdPrototype =
+            Paths.get("src/test/resource/prototypes/thirdResult").toAbsolutePath().normalize();
 
     @Test
     public void test1() throws Exception {
@@ -43,6 +45,18 @@ public class DifferTest {
     public void test4() throws Exception {
         String expected2 = Files.readString(secondPrototype);
         String actual2 = Differ.generate(path3, path4, "plain");
+        assertEquals(expected2, actual2);
+    }
+    @Test
+    public void test5() throws Exception {
+        String expected1 = Files.readString(thirdPrototype);
+        String actual1 = Differ.generate(path1, path2, "json");
+        assertEquals(expected1, actual1);
+    }
+    @Test
+    public void test6() throws Exception {
+        String expected2 = Files.readString(thirdPrototype);
+        String actual2 = Differ.generate(path3, path4, "json");
         assertEquals(expected2, actual2);
     }
 }
