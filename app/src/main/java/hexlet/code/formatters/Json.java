@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Json {
     public static String formatJson(List<Map<String, Object>> differences) throws IOException {
-        ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);;
+        ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(differences);
     }
 }
