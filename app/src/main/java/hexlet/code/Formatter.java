@@ -10,16 +10,11 @@ import java.util.Map;
 
 public class Formatter {
     public static String formatStyle(List<Map<String, Object>> differences, String format) throws IOException {
-        switch (format) {
-            case "stylish":
-                return Stylish.formatStylish(differences);
-            case "plain":
-                return Plain.formatPlain(differences);
-            case "json":
-                return Json.formatJson(differences);
-            default:
-                System.out.println(format + "is unknown type!");
-        }
-        return Stylish.formatStylish(differences);
+        return switch (format) {
+            case "stylish" -> Stylish.formatStylish(differences);
+            case "plain" -> Plain.formatPlain(differences);
+            case "json" -> Json.formatJson(differences);
+            default -> throw new IOException("Unknown type of formatter");
+        };
     }
 }

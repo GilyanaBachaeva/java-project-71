@@ -59,4 +59,16 @@ public class DifferTest {
         String actual2 = Differ.generate(path3, path4, "json");
         assertEquals(expected2, actual2);
     }
+    @Test
+    public void test7() throws Exception {
+        String expected1 = Files.readString(firstPrototype);
+        String actual1 = Differ.generate(path1, path2, "stylish");
+        assertEquals(expected1, actual1);
+    }
+    @Test
+    public void test8() throws Exception {
+        String expected2 = Files.readString(firstPrototype);
+        String actual2 = Differ.generate(path3, path4, "stylish");
+        assertEquals(expected2, actual2);
+    }
 }

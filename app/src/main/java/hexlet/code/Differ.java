@@ -3,44 +3,12 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.Set;
-import java.util.LinkedHashMap;
 import static hexlet.code.Parser.parser;
-import java.util.Objects;
+
 
 public class Differ {
-    public static List<Map<String, Object>> generateDifferenceList(Map<String, Object> map1, Map<String, Object> map2) {
-        List<Map<String, Object>> result = new ArrayList<>();
-        Set<String> keysSet = new TreeSet<>(map1.keySet());
-        keysSet.addAll(map2.keySet());
-        for (String key :  keysSet) {
-            Map<String, Object> map = new LinkedHashMap<>();
-            if (map1.containsKey(key) && !map2.containsKey(key)) {
-                map.put("key", key);
-                map.put("oldValue", map1.get(key));
-                map.put("status", "removed");
-            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
-                map.put("key", key);
-                map.put("newValue", map2.get(key));
-                map.put("status", "added");
-            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
-                map.put("key", key);
-                map.put("oldValue", map1.get(key));
-                map.put("newValue", map2.get(key));
-                map.put("status", "updated");
-            } else {
-                map.put("key", key);
-                map.put("oldValue", map1.get(key));
-                map.put("status", "unchanged");
-            }
-            result.add(map);
-        }
-        return result;
-    }
 
     public static String  generate(String filepath1, String filepath2, String format) throws Exception {
         String readFile1Path = filepath1;
@@ -58,7 +26,7 @@ public class Differ {
         Map<String, Object> map1 = parser(content1, fileType1);
         Map<String, Object> map2 = parser(content2, fileType2);
 
-        List<Map<String, Object>> result = generateDifferenceList(map1, map2);
+        List<Map<String, Object>> result = DiffGenerator.generateDifferenceList(map1, map2);
 
         return Formatter.formatStyle(result, format);
     }
