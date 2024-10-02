@@ -5,3 +5,4 @@
 .idea
 .idea/compiler.xml
 app/.gradle/8.5/executionHistory/executionHistory.lock
+/app/wrapper
