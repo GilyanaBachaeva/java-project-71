@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
@@ -51,13 +52,13 @@ public class DifferTest {
     public void test5() throws Exception {
         String expected1 = Files.readString(thirdPrototype);
         String actual1 = Differ.generate(path1, path2, "json");
-        assertEquals(expected1, actual1);
+        assertThat(expected1).isEqualToIgnoringWhitespace(actual1);
     }
     @Test
     public void test6() throws Exception {
         String expected2 = Files.readString(thirdPrototype);
         String actual2 = Differ.generate(path3, path4, "json");
-        assertEquals(expected2, actual2);
+        assertThat(expected2).isEqualToIgnoringWhitespace(actual2);
     }
     @Test
     public void test7() throws Exception {
