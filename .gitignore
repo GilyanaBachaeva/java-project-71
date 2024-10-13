@@ -9,3 +9,9 @@ app/.gradle/8.5/executionHistory/executionHistory.lock
 /app/daemon/
 app/daemon/8.5/daemon-19316.out.log
 app/daemon/8.5/daemon-19316.out.log
+/app/.tmp
+*.bin
+/app/caches
+/app/native
+/app/jdks
+/app/caches
