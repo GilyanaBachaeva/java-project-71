@@ -7,7 +7,6 @@ plugins {
     jacoco
     id("checkstyle")
     id("io.freefair.lombok") version "8.6"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "hexlet.code"
@@ -29,6 +28,9 @@ dependencies {
     implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2")
     implementation("io.vertx:vertx-core:3.5.3")
     testImplementation("org.assertj:assertj-core:3.22.0")
+}
+jacoco {
+    toolVersion = "0.8.11"
 }
 
 tasks.test {
